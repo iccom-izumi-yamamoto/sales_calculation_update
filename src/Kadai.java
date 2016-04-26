@@ -8,6 +8,9 @@ public class Kadai {
 
 	//支店定義の読込み
 	public static void main (String [] args) {
+		HashMap<String, String> branch = new HashMap<String,String> () ;
+		HashMap<String, String> commodity = new HashMap<String,String> () ;
+
 		try {
 			File file = new File (args[0] + "\\branch.lst") ;
 			FileReader fr = new FileReader (file) ;
@@ -20,10 +23,7 @@ public class Kadai {
 				System.out.println("支店定義ファイルのフォーマットが不正です");
 				}
 
-				// System.out.println(str);
-				HashMap<String, String> branch = new HashMap<String,String> () ;
 				branch.put(bran[0] , bran[1]);
-				System.out.println(branch.entrySet());
 
 			}
 			br.close () ;
@@ -31,7 +31,7 @@ public class Kadai {
 			System.out.println("支店定義ファイルが存在しません");
 			return ;
 	}
-
+		System.out.println(branch.entrySet());
 
 
 	//商品定義の読込み
@@ -46,25 +46,22 @@ public class Kadai {
 				if (com[0].length() != 8 ) {
 				System.out.println("商品定義ファイルのフォーマットが不正です");
 				}
-
-				HashMap<String, String> commodity = new HashMap<String,String> () ;
 				commodity.put(com[0] , com[1]);
-				System.out.println(commodity.entrySet());
-
 			}
 			br.close () ;
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			System.out.println("商品定義ファイルが存在しません");
 			return ;
 		}
+		System.out.println(commodity.entrySet());
 
-	//集計 rcd含んで8桁
-//		args [0] でCドライブの課題ファイルを指定その中のrcdファイルが対象
-//		if (file.contains (".rcd") && file.length == 12桁?) ;
-//		どうやって連番じゃないのを認識するか？
-//		これで出来る！　^[a-zA-Z0-9]{8}.rcd
-
-
-
+ //集計rcdのみ
+		File dir = new File (args[0]) ;
+		File files [] = dir.listFiles () ;
+		for (int i =0 ; i < files.length ; i++) {
+			if (files [i].toString().endsWith (".rcd") )
+			System.out.println(files[i]) ;
+	}
 	}
 }
