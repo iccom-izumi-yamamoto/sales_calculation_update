@@ -61,7 +61,7 @@ public class Kadai {
 		File files [] = dir.listFiles () ;
 		for (int i =0 ; i < files.length ; i++) {
 			if (files [i].toString().endsWith (".rcd") )
-			System.out.println(files[i]) ;
-	}
+			System.out.println(files[i].getName()) ;
+	}//ifの終わり
 	}
 }
