@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Kadai {
@@ -30,7 +31,7 @@ public class Kadai {
 		} catch (IOException e) {
 			System.out.println("支店定義ファイルが存在しません");
 			return ;
-	}
+		}
 		System.out.println(branch.entrySet());
 
 
@@ -59,9 +60,39 @@ public class Kadai {
  //集計rcdのみ
 		File dir = new File (args[0]) ;
 		File files [] = dir.listFiles () ;
+
+
+
 		for (int i =0 ; i < files.length ; i++) {
-			if (files [i].toString().endsWith (".rcd") )
-			System.out.println(files[i].getName()) ;
+//			System.out.println(i);
+			if (files [i].toString().endsWith (".rcd") ) {
+//			System.out.println(files[i].getName())
+				System.out.println(files [i].getName().substring(0,8));//rcd無しの数値
+
+
+				int j = Integer.parseInt(files[i].getName().substring(0,8));
+	//			System.out.println(j);//数値に変換
+
+				int k = j-i ;
+				if (k != 1) {
+					System.out.println("連番ではありません");
+					return ;
+	//			} else {
+	//			System.out.println("連番ではありません");
+				}
+
+			}
+//rcdをリストに格納することで、読込み・加算が限定できる
+		}
+			ArrayList<String> RcdFiles = new ArrayList<String> () ;
+			RcdFiles.add("00000001.rcd") ;
+			RcdFiles.add("00000002.rcd") ;
+			RcdFiles.add("00000003.rcd") ;
+			RcdFiles.add("00000004.rcd") ;
+
+
+			//}
 	}//ifの終わり
-	}
+
+//	}
 }
