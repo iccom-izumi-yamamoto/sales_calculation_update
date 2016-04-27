@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Kadai {
@@ -61,7 +60,8 @@ public class Kadai {
 		File dir = new File (args[0]) ;
 		File files [] = dir.listFiles () ;
 
-
+//ファイルrcdの変数宣言!!!!
+//		String [] RcdList = dir.list() ;  ??????
 
 		for (int i =0 ; i < files.length ; i++) {
 //			System.out.println(i);
@@ -77,19 +77,16 @@ public class Kadai {
 				if (k != 1) {
 					System.out.println("連番ではありません");
 					return ;
-	//			} else {
-	//			System.out.println("連番ではありません");
 				}
 
+//ファイル出力　put!!!!
+//				System.out.println(RcdList); ????
 			}
+
 //rcdをリストに格納することで、読込み・加算が限定できる
 		}
-			ArrayList<String> RcdFiles = new ArrayList<String> () ;
-			RcdFiles.add("00000001.rcd") ;
-			RcdFiles.add("00000002.rcd") ;
-			RcdFiles.add("00000003.rcd") ;
-			RcdFiles.add("00000004.rcd") ;
 
+//		リストファイルを開く！！！
 
 			//}
 	}//ifの終わり
