@@ -148,7 +148,7 @@ public class Kadai {
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
-		
+
 
   }
 
