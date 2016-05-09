@@ -108,7 +108,7 @@ public class Kadai {
 				ArrayList<String> eachRcd = new ArrayList<String>();
 					while ((Rcd = br.readLine ()) != null) {
 
-	//					System.out.println(Rcd);//Rcdファイルの中身抽出
+						System.out.println(Rcd);//Rcdファイルの中身抽出
 						eachRcd.add(Rcd);
 
 					}br.close();
@@ -148,7 +148,7 @@ public class Kadai {
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
-
+		
 
   }
 
