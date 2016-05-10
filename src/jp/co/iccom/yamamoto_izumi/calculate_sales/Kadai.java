@@ -24,7 +24,7 @@ public static void main (String [] args) {
 	HashMap <String, Long> commoditySales = new HashMap <String, Long> () ;
 
 		try {
-			File file = new File (args[0], "\\branch.lst") ;
+			File file = new File (args[0]+ File.separator + "branch.lst") ;
 			FileReader fr = new FileReader (file) ;
 			BufferedReader br = new BufferedReader (fr) ;
 			String str ;
@@ -52,7 +52,7 @@ public static void main (String [] args) {
 
 	//商品定義の読込み
 		try {
-			File file = new File (args[0] , "\\commodity.lst") ;
+			File file = new File (args[0] + File.separator + "commodity.lst") ;
 			FileReader fr = new FileReader (file) ;
 			BufferedReader br = new BufferedReader (fr) ;
 			String str ;
@@ -79,7 +79,7 @@ public static void main (String [] args) {
 
 
  //集計rcdのみ
-	File dir = new File (args[0]) ;
+	File dir = new File (args[0] + File.separator) ;
 	File files [] = dir.listFiles () ;
 
 //rcdリストの変数宣言
@@ -160,7 +160,7 @@ public static void main (String [] args) {
 		}
 
 
-		File branchOut = new File (args[0] , "\\branch.out" ) ;
+		File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
 		BufferedWriter branchWriter = null ;
 			try {
 				branchOut.createNewFile() ;
@@ -198,7 +198,7 @@ public static void main (String [] args) {
 			}
 
 
-		File commodityOut = new File (args[0] , "\\commodity.out") ;
+		File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
 		BufferedWriter commodityWriter = null ;
 			try {
 				commodityOut.createNewFile() ;
