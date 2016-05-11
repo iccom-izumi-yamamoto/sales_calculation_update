@@ -24,6 +24,11 @@ public static void main (String [] args) throws FileNotFoundException {
 	HashMap <String, Long> branchSales = new HashMap <String, Long> () ;
 	HashMap <String, Long> commoditySales = new HashMap <String, Long> () ;
 
+	if (args.length != 1) {
+		System.out.println("予期せぬエラーが発生しました");
+		return ;
+	}
+
 //支店定義の読込み
 	File branchLst = new File (args[0]+ File.separator + "branch.lst") ;
 	FileReader frBranch = new FileReader (branchLst) ;
