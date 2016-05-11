@@ -157,7 +157,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			commoditySales.put(eachRcd.get(1), s + commoditySales.get(eachRcd.get(1))) ;
 
 
-				if (s + branchSales.get(eachRcd.get(0)) > 999999999) {
+				if (s + branchSales.get(eachRcd.get(0)) > 9999999999L) {
 					System.out.println("合計金額が10桁を超えました");
 					return ;
 				}
@@ -193,9 +193,8 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 	File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
-	BufferedWriter branchWriter = null ;
+	BufferedWriter bwBranch = null ;
 		try {
-			branchOut.createNewFile() ;
 			FileWriter fw = new FileWriter (branchOut) ;
 			BufferedWriter bw = new BufferedWriter (fw) ;
 			List<Map.Entry<String, Long>> branchEntries = new ArrayList<Map.Entry<String,Long>>(branchSales.entrySet());
@@ -213,17 +212,19 @@ public static void main (String [] args) throws FileNotFoundException {
 			for (Entry<String, Long> b : branchEntries) {
 				bw.write(b.getKey() + "," + branch.get(b.getKey()) + "," + b.getValue());
 				bw.newLine();
+
 			}
 
+			bw.close();
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
 		}
 
 		finally {
-			if (branchWriter != null ) {
+			if (bwBranch != null ) {
 				try {
-					branchWriter.close() ;
+					bwBranch.close() ;
 				}
 				catch (IOException e) {
 					System.out.println("予期せぬエラーが発生しました");
@@ -235,7 +236,7 @@ public static void main (String [] args) throws FileNotFoundException {
 	File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
 	BufferedWriter commodityWriter = null ;
 		try {
-			commodityOut.createNewFile() ;
+
 			FileWriter fw = new FileWriter (commodityOut) ;
 			BufferedWriter bw = new BufferedWriter (fw) ;
 
@@ -256,7 +257,7 @@ public static void main (String [] args) throws FileNotFoundException {
 				bw.write(c.getKey() + "," + commodity.get(c.getKey()) + "," + c.getValue());
 				bw.newLine();
 			}
-
+			bw.close();
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
