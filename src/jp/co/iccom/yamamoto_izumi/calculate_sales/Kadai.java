@@ -189,16 +189,16 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 	File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
-//	try {
-//		if (! branchOut.createNewFile()) {
-//			System.out.println("予期せぬエラーが発生しました5");
-//			return ;
-//		}
-//	}
-//	catch (IOException e) {
-//			System.out.println("予期せぬエラーが発生しました6");
-//			return ;
-//	}
+	try {
+		if (! branchOut.createNewFile()) {
+			System.out.println("予期せぬエラーが発生しました5");
+			return ;
+		}
+	}
+	catch (IOException e) {
+			System.out.println("予期せぬエラーが発生しました6");
+			return ;
+	}
 
 	BufferedWriter bwBranch = null ;
 		try {
@@ -243,16 +243,16 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 	File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
-//	try {
-//		if (! commodityOut.createNewFile()) {
-//			System.out.println("予期せぬエラーが発生しました9");
-//			return ;
-//		}
-//	}
-//	catch (IOException e) {
-//			System.out.println("予期せぬエラーが発生しました10");
-//			return ;
-//	}
+	try {
+		if (! commodityOut.createNewFile()) {
+			System.out.println("予期せぬエラーが発生しました9");
+			return ;
+		}
+	}
+	catch (IOException e) {
+			System.out.println("予期せぬエラーが発生しました10");
+			return ;
+	}
 	BufferedWriter commodityWriter = null ;
 		try {
 
