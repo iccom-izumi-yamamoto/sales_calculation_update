@@ -71,7 +71,6 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 	}
 
-	System.out.println(branch.entrySet());
 
 
 	//商品定義の読込み
@@ -116,7 +115,6 @@ public static void main (String [] args) throws FileNotFoundException {
 			return ;
 		}
 	}
-	System.out.println(commodity.entrySet());
 
 
  //集計rcdのみ
@@ -128,16 +126,12 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	for (int i =0 ; i < files.length ; i++) {
 		if (files [i].toString().endsWith (".rcd") ) {
-//			System.out.println(files [i].getName().substring(0,8));//rcd無しの数値
 
 			int j = Integer.parseInt(files[i].getName().substring(0,8));
-//				System.out.println(j);//数値に変換
 
 			rcdList.add (files[i]) ;
-//				System.out.println(files[i]);
 
 			int k = j-i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
-//				System.out.println("i : " + i + "  j : " + j + "  k : " + k);
 
 			if (k != 1) {
 				System.out.println("売上ファイル名が連番になっていません");
@@ -154,11 +148,10 @@ public static void main (String [] args) throws FileNotFoundException {
 			ArrayList<String> eachRcd = new ArrayList<String>();
 
 				while ((Rcd = br.readLine ()) != null) {
-					System.out.println(Rcd);//Rcdファイルの中身抽出
 					eachRcd.add(Rcd);
 				}br.close();
 
-			long s = Long.parseLong(eachRcd.get(2));	//rcdListをString型に変換してからLに振り返る
+			long s = Long.parseLong(eachRcd.get(2));
 
 			branchSales.put(eachRcd.get(0), s + branchSales.get(eachRcd.get(0)) ) ;
 			commoditySales.put(eachRcd.get(1), s + commoditySales.get(eachRcd.get(1))) ;
@@ -188,9 +181,6 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 		}
-
-	System.out.println(branchSales);
-	System.out.println(commoditySales);
 
 	}
 	catch (IOException e) {
