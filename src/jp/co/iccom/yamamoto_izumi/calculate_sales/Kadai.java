@@ -67,6 +67,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
+			return ;
 		}
 	}
 
@@ -112,6 +113,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
+			return ;
 		}
 	}
 	System.out.println(commodity.entrySet());
@@ -224,6 +226,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
+			return ;
 		}
 
 		finally {
@@ -233,6 +236,7 @@ public static void main (String [] args) throws FileNotFoundException {
 				}
 				catch (IOException e) {
 					System.out.println("予期せぬエラーが発生しました");
+					return ;
 				}
 			}
 		}
@@ -266,6 +270,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
+			return ;
 		}
 		finally {
 			if ( commodityWriter != null ) {
@@ -274,6 +279,7 @@ public static void main (String [] args) throws FileNotFoundException {
 				}
 				catch (IOException e) {
 					System.out.println("予期せぬエラーが発生しました");
+					return ;
 				}
 			}
 		}
