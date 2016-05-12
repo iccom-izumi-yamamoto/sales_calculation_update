@@ -25,7 +25,7 @@ public static void main (String [] args) throws FileNotFoundException {
 	HashMap <String, Long> commoditySales = new HashMap <String, Long> () ;
 
 	if (args.length != 1) {
-		System.out.println("予期せぬエラーが発生しました");
+		System.out.println("予期せぬエラーが発生しました1");
 		return ;
 	}
 
@@ -62,7 +62,7 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	}
 	catch (IOException e) {
-		System.out.println("予期せぬエラーが発生しました");
+		System.out.println("予期せぬエラーが発生しました2");
 		return ;
 	}
 	finally {
@@ -70,7 +70,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			brBranch.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+			System.out.println("予期せぬエラーが発生しました3");
 			return ;
 		}
 	}
@@ -112,7 +112,7 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	}
 	catch (IOException e) {
-		System.out.println("予期せぬエラーが発生しました");
+		System.out.println("予期せぬエラーが発生しました4");
 		return ;
 	}
 	finally {
@@ -120,7 +120,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			brCommodity.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+			System.out.println("予期せぬエラーが発生しました5");
 			return ;
 		}
 	}
@@ -134,20 +134,37 @@ public static void main (String [] args) throws FileNotFoundException {
 	ArrayList<File> rcdList = new ArrayList<File>();
 
 	for (int i =0 ; i < files.length ; i++) {
-		if (files [i].toString().endsWith (".rcd") ) {
 
-			int j = Integer.parseInt(files[i].getName().substring(0,8));
+		String fileName = files[i].getName() ;
 
+		if (fileName.matches("^\\d{8}.rcd$") ){
 			rcdList.add (files[i]) ;
-			int k = j-i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
+			return ;
 
-			if (k != 1) {
-				System.out.println("売上ファイル名が連番になっていません");
-				return ;
-			}
+		} else {
+			System.out.println("売上ファイル名が連番になっていません2");
+			return ;
+		}
+	}
+
+
+
+	for (int i = 0 ; i < rcdList.size() ; i++) {
+
+		int fetch  = Integer.parseInt(rcdList.get(i).getName().substring(0,8));
+
+		int dif = fetch -i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
+
+		if (dif != 1) {
+			System.out.println("売上ファイル名が連番になっていません1");
+			return ;
 		}
 
 	}//rcdのfor終了
+
+
+
+
 
 	for (int f = 0 ; f < rcdList.size() ; f++) {
 		String Rcd = rcdList.get(f).toString() ;
@@ -193,7 +210,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+			System.out.println("予期せぬエラーが発生しました6");
 			return;
 		}
 
@@ -203,7 +220,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					brRcd.close() ;
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
+					System.out.println("予期せぬエラーが発生しました7");
 					return ;
 				}
 			}
@@ -211,17 +228,6 @@ public static void main (String [] args) throws FileNotFoundException {
 	}
 
 	File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
-	try {
-		if (! branchOut.createNewFile()) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-		}
-	}
-	catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-	}
-
 	BufferedWriter bwBranch = null ;
 		try {
 			FileWriter fw = new FileWriter (branchOut) ;
@@ -247,7 +253,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			bw.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+			System.out.println("予期せぬエラーが発生しました10");
 			return ;
 		}
 
@@ -257,7 +263,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					bwBranch.close() ;
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
+					System.out.println("予期せぬエラーが発生しました11");
 					return ;
 				}
 			}
@@ -265,17 +271,6 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 	File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
-	try {
-		if (! commodityOut.createNewFile()) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-		}
-	}
-	catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-	}
-
 	BufferedWriter commodityWriter = null ;
 		try {
 
@@ -302,7 +297,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			bw.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+			System.out.println("予期せぬエラーが発生しました12");
 			return ;
 		}
 		finally {
@@ -311,7 +306,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					commodityWriter.close();
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
+					System.out.println("予期せぬエラーが発生しました13");
 					return ;
 				}
 			}
