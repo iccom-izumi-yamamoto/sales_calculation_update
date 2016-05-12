@@ -226,10 +226,9 @@ public static void main (String [] args) throws FileNotFoundException {
 	}
 
 	File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
-	BufferedWriter bwBranch = null ;
+	BufferedWriter branchWriter = null ;
 		try {
-			FileWriter fw = new FileWriter (branchOut) ;
-			BufferedWriter bw = new BufferedWriter (fw) ;
+			branchWriter = new BufferedWriter(new FileWriter(branchOut)) ;
 			List<Map.Entry<String, Long>> branchEntries = new ArrayList<Map.Entry<String,Long>>(branchSales.entrySet());
 
 			Collections.sort(branchEntries, new Comparator<Map.Entry<String,Long>>() {
@@ -243,12 +242,10 @@ public static void main (String [] args) throws FileNotFoundException {
 			});
 
 			for (Entry<String, Long> b : branchEntries) {
-				bw.write(b.getKey() + "," + branch.get(b.getKey()) + "," + b.getValue());
-				bw.newLine();
+				branchWriter.write(b.getKey() + "," + branch.get(b.getKey()) + "," + b.getValue());
+				branchWriter.newLine();
 
 			}
-
-			bw.close();
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
@@ -256,9 +253,9 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 
 		finally {
-			if (bwBranch != null ) {
+			if (branchWriter != null ) {
 				try {
-					bwBranch.close() ;
+					branchWriter.close() ;
 				}
 				catch (IOException e) {
 					System.out.println("予期せぬエラーが発生しました");
@@ -271,10 +268,7 @@ public static void main (String [] args) throws FileNotFoundException {
 	File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
 	BufferedWriter commodityWriter = null ;
 		try {
-
-			FileWriter fw = new FileWriter (commodityOut) ;
-			BufferedWriter bw = new BufferedWriter (fw) ;
-
+			commodityWriter = new BufferedWriter(new FileWriter(commodityOut)) ;
 			List<Map.Entry<String, Long>> commodityEntries = new ArrayList<Map.Entry<String,Long>>(commoditySales.entrySet());
 
 			Collections.sort(commodityEntries, new Comparator<Map.Entry<String, Long>>() {
@@ -289,10 +283,9 @@ public static void main (String [] args) throws FileNotFoundException {
 
 
 			for (Entry<String,Long> c : commodityEntries ) {
-				bw.write(c.getKey() + "," + commodity.get(c.getKey()) + "," + c.getValue());
-				bw.newLine();
+				commodityWriter.write(c.getKey() + "," + commodity.get(c.getKey()) + "," + c.getValue());
+				commodityWriter.newLine();
 			}
-			bw.close();
 		}
 		catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
