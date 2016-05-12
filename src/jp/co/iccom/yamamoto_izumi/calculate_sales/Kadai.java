@@ -25,7 +25,7 @@ public static void main (String [] args) throws FileNotFoundException {
 	HashMap <String, Long> commoditySales = new HashMap <String, Long> () ;
 
 	if (args.length != 1) {
-		System.out.println("予期せぬエラーが発生しました1");
+		System.out.println("予期せぬエラーが発生しました");
 		return ;
 	}
 
@@ -62,7 +62,7 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	}
 	catch (IOException e) {
-		System.out.println("予期せぬエラーが発生しました2");
+		System.out.println("予期せぬエラーが発生しました");
 		return ;
 	}
 	finally {
@@ -70,7 +70,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			brBranch.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました3");
+			System.out.println("予期せぬエラーが発生しました");
 			return ;
 		}
 	}
@@ -112,7 +112,7 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	}
 	catch (IOException e) {
-		System.out.println("予期せぬエラーが発生しました4");
+		System.out.println("予期せぬエラーが発生しました");
 		return ;
 	}
 	finally {
@@ -120,7 +120,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			brCommodity.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました5");
+			System.out.println("予期せぬエラーが発生しました");
 			return ;
 		}
 	}
@@ -142,7 +142,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			return ;
 
 		} else {
-			System.out.println("売上ファイル名が連番になっていません2");
+			System.out.println("売上ファイル名が連番になっていません");
 			return ;
 		}
 	}
@@ -156,7 +156,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		int dif = fetch -i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
 
 		if (dif != 1) {
-			System.out.println("売上ファイル名が連番になっていません1");
+			System.out.println("売上ファイル名が連番になっていません");
 			return ;
 		}
 
@@ -210,7 +210,7 @@ public static void main (String [] args) throws FileNotFoundException {
 		}
 
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました6");
+			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
 
@@ -220,7 +220,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					brRcd.close() ;
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました7");
+					System.out.println("予期せぬエラーが発生しました");
 					return ;
 				}
 			}
@@ -253,7 +253,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			bw.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました10");
+			System.out.println("予期せぬエラーが発生しました");
 			return ;
 		}
 
@@ -263,7 +263,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					bwBranch.close() ;
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました11");
+					System.out.println("予期せぬエラーが発生しました");
 					return ;
 				}
 			}
@@ -297,7 +297,7 @@ public static void main (String [] args) throws FileNotFoundException {
 			bw.close();
 		}
 		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました12");
+			System.out.println("予期せぬエラーが発生しました");
 			return ;
 		}
 		finally {
@@ -306,7 +306,7 @@ public static void main (String [] args) throws FileNotFoundException {
 					commodityWriter.close();
 				}
 				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました13");
+					System.out.println("予期せぬエラーが発生しました");
 					return ;
 				}
 			}
