@@ -138,7 +138,11 @@ public static void main (String [] args) throws FileNotFoundException {
 		String fileName = files[i].getName() ;
 
 		if (fileName.matches("^\\d{8}.rcd$") ){
-			rcdList.add (files[i]) ;
+			if(files[i].isFile()) {
+
+				rcdList.add (files[i]) ;
+
+			}
 		}
 	}
 
@@ -147,9 +151,9 @@ public static void main (String [] args) throws FileNotFoundException {
 
 		int fetch  = Integer.parseInt(rcdList.get(i).getName().substring(0,8));
 
-		int dif = fetch -i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
+		int difference = fetch - i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
 
-		if (dif != 1) {
+		if (difference != 1) {
 			System.out.println("売上ファイル名が連番になっていません");
 			return ;
 		}
