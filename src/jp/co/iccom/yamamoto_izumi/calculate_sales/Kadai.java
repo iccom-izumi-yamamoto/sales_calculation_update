@@ -139,14 +139,8 @@ public static void main (String [] args) throws FileNotFoundException {
 
 		if (fileName.matches("^\\d{8}.rcd$") ){
 			rcdList.add (files[i]) ;
-			return ;
-
-		} else {
-			System.out.println("売上ファイル名が連番になっていません");
-			return ;
 		}
 	}
-
 
 
 	for (int i = 0 ; i < rcdList.size() ; i++) {
