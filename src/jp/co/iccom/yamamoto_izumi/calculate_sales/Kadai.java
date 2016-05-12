@@ -46,18 +46,18 @@ public static void main (String [] args) throws FileNotFoundException {
 		while ((str = brBranch.readLine ()) != null) {
 			String [] bran = str.split(",",-1 ) ;
 
-				if (bran.length != 2) {
-					System.out.println("支店定義ファイルのフォーマットが不正です");
-					return;
-				}
+			if (bran.length != 2) {
+				System.out.println("支店定義ファイルのフォーマットが不正です");
+				return;
+			}
 
-				if (! bran[0].matches ("^\\d{3}$") ) {
-					System.out.println("支店定義ファイルのフォーマットが不正です");
-					return ;
-				}
+			if (! bran[0].matches ("^\\d{3}$") ) {
+				System.out.println("支店定義ファイルのフォーマットが不正です");
+				return ;
+			}
 
-			branch.put(bran[0] , bran[1]);
-			branchSales.put(bran[0], 0L) ;
+		branch.put(bran[0] , bran[1]);
+		branchSales.put(bran[0], 0L) ;
 		}
 
 	}
@@ -90,25 +90,24 @@ public static void main (String [] args) throws FileNotFoundException {
 	BufferedReader brCommodity = new BufferedReader (frCommodity) ;
 
 	try {
-
 		String str ;
 
-			while ((str = brCommodity.readLine ()) != null) {
-				String [] com = str.split("," , -1) ;
+		while ((str = brCommodity.readLine ()) != null) {
+			String [] com = str.split("," , -1) ;
 
-					if (com.length != 2) {
-						System.out.println("商品定義ファイルのフォーマットが不正です");
-						return;
-					}
-
-					if (! com[0].matches ("\\w{8}$"))  {
-						System.out.println("商品定義ファイルのフォーマットが不正です");
-						return ;
-					}
-
-				commodity.put(com[0] , com[1]);
-				commoditySales.put(com[0], 0L);
+			if (com.length != 2) {
+				System.out.println("商品定義ファイルのフォーマットが不正です");
+				return;
 			}
+
+			if (! com[0].matches ("\\w{8}$"))  {
+				System.out.println("商品定義ファイルのフォーマットが不正です");
+				return ;
+			}
+
+			commodity.put(com[0] , com[1]);
+			commoditySales.put(com[0], 0L);
+		}
 
 	}
 	catch (IOException e) {
@@ -138,10 +137,9 @@ public static void main (String [] args) throws FileNotFoundException {
 		String fileName = files[i].getName() ;
 
 		if (fileName.matches("^\\d{8}.rcd$") ){
+
 			if(files[i].isFile()) {
-
 				rcdList.add (files[i]) ;
-
 			}
 		}
 	}
@@ -227,80 +225,78 @@ public static void main (String [] args) throws FileNotFoundException {
 
 	File branchOut = new File (args[0] + File.separator + "branch.out" ) ;
 	BufferedWriter branchWriter = null ;
-		try {
-			branchWriter = new BufferedWriter(new FileWriter(branchOut)) ;
-			List<Map.Entry<String, Long>> branchEntries = new ArrayList<Map.Entry<String,Long>>(branchSales.entrySet());
+	try {
+		branchWriter = new BufferedWriter(new FileWriter(branchOut)) ;
+		List<Map.Entry<String, Long>> branchEntries = new ArrayList<Map.Entry<String,Long>>(branchSales.entrySet());
 
-			Collections.sort(branchEntries, new Comparator<Map.Entry<String,Long>>() {
+		Collections.sort(branchEntries, new Comparator<Map.Entry<String,Long>>() {
+			@Override
+			public int compare(
+			Entry<String,Long> entry1, Entry<String,Long> entry2) {
+				return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
+			}
 
-				@Override
-				public int compare(
-				Entry<String,Long> entry1, Entry<String,Long> entry2) {
-					return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
-				}
+		});
 
-			});
+		for (Entry<String, Long> b : branchEntries) {
+			branchWriter.write(b.getKey() + "," + branch.get(b.getKey()) + "," + b.getValue());
+			branchWriter.newLine();
+		}
 
-			for (Entry<String, Long> b : branchEntries) {
-				branchWriter.write(b.getKey() + "," + branch.get(b.getKey()) + "," + b.getValue());
-				branchWriter.newLine();
+	}
+	catch (IOException e) {
+		System.out.println("予期せぬエラーが発生しました");
+		return ;
+	}
 
+	finally {
+		if (branchWriter != null ) {
+			try {
+				branchWriter.close() ;
+			}
+			catch (IOException e) {
+				System.out.println("予期せぬエラーが発生しました");
+				return ;
 			}
 		}
-		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-		}
-
-		finally {
-			if (branchWriter != null ) {
-				try {
-					branchWriter.close() ;
-				}
-				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
-					return ;
-				}
-			}
-		}
+	}
 
 
 	File commodityOut = new File (args[0] + File.separator + "commodity.out") ;
 	BufferedWriter commodityWriter = null ;
-		try {
-			commodityWriter = new BufferedWriter(new FileWriter(commodityOut)) ;
-			List<Map.Entry<String, Long>> commodityEntries = new ArrayList<Map.Entry<String,Long>>(commoditySales.entrySet());
+	try {
+		commodityWriter = new BufferedWriter(new FileWriter(commodityOut)) ;
+		List<Map.Entry<String, Long>> commodityEntries = new ArrayList<Map.Entry<String,Long>>(commoditySales.entrySet());
 
-			Collections.sort(commodityEntries, new Comparator<Map.Entry<String, Long>>() {
-
-				@Override
-				public int compare(
-				Entry<String,Long> entry1, Entry<String,Long> entry2) {
-					return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
-				}
-
-			});
-
-
-			for (Entry<String,Long> c : commodityEntries ) {
-				commodityWriter.write(c.getKey() + "," + commodity.get(c.getKey()) + "," + c.getValue());
-				commodityWriter.newLine();
+		Collections.sort(commodityEntries, new Comparator<Map.Entry<String, Long>>() {
+			@Override
+			public int compare(
+			Entry<String,Long> entry1, Entry<String,Long> entry2) {
+				return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
 			}
+
+		});
+
+
+		for (Entry<String,Long> c : commodityEntries ) {
+			commodityWriter.write(c.getKey() + "," + commodity.get(c.getKey()) + "," + c.getValue());
+			commodityWriter.newLine();
 		}
-		catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
-			return ;
-		}
-		finally {
-			if ( commodityWriter != null ) {
-				try {
-					commodityWriter.close();
-				}
-				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
-					return ;
-				}
+	}
+	catch (IOException e) {
+		System.out.println("予期せぬエラーが発生しました");
+		return ;
+	}
+	finally {
+		if ( commodityWriter != null ) {
+			try {
+				commodityWriter.close();
+			}
+			catch (IOException e) {
+				System.out.println("予期せぬエラーが発生しました");
+				return ;
 			}
 		}
 	}
+}
 }
