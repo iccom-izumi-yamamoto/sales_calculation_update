@@ -39,10 +39,7 @@ public class SalesCalculationAssignment {
 			return ;
 		}
 
-		if(calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
-
-		} else {
-			System.out.println("予期せぬエラーが発生しました");
+		if(!calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
 			return ;
 		}
 
@@ -123,9 +120,11 @@ public class SalesCalculationAssignment {
 
 				if (object.length != 2) { //要素数が[0][1]
 					System.out.println(Name + "定義ファイルのフォーマットが不正です");
+					return false ;
 				}
 				if (! object[0].matches (digits))  { //[0]がX桁
 					System.out.println(Name + "定義ファイルのフォーマットが不正です");
+					return false ;
 				}
 
 				listMap.put(object[0] , object[1]);
@@ -184,7 +183,7 @@ public class SalesCalculationAssignment {
 
 			if (difference != 1) {
 				System.out.println("売上ファイル名が連番になっていません");
-				return false;
+				return false ;
 			}
 
 		}//rcdのfor終了
@@ -203,12 +202,14 @@ public class SalesCalculationAssignment {
 
 				if (eachRcd.size() != 3 ) {
 					System.out.println(array.get(i).getName() + "のフォーマットが不正です");
+					return false ;
 				}
 
 				long s = Long.parseLong(eachRcd.get(2));
 
 				if (! branchProfit.containsKey(eachRcd.get(0)) ) {
 					System.out.println(array.get(i).getName() + "の支店コードが不正です");
+					return false ;
 
 				}else {
 					branchProfit.put(eachRcd.get(0), s + branchProfit.get(eachRcd.get(0)) ) ;
@@ -217,6 +218,7 @@ public class SalesCalculationAssignment {
 
 				if (! commodityProfit.containsKey(eachRcd.get(1))) {
 					System.out.println(array.get(i).getName() + "の商品コードが不正です");
+					return false ;
 
 				}else {
 					commodityProfit.put(eachRcd.get(1), s + commodityProfit.get(eachRcd.get(1))) ;
@@ -224,6 +226,7 @@ public class SalesCalculationAssignment {
 
 				if (s + branchProfit.get(eachRcd.get(0)) > 9999999999L) {
 					System.out.println("合計金額が10桁を超えました");
+					return false ;
 				}
 
 
