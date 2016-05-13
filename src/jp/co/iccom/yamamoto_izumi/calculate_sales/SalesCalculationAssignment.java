@@ -19,10 +19,10 @@ public class SalesCalculationAssignment {
 
 
 	public static void main (String [] args) throws FileNotFoundException {
-		HashMap<String, String> branch = new HashMap<String,String> () ;
-		HashMap<String, String> commodity = new HashMap<String,String> () ;
-		HashMap <String, Long> branchSales = new HashMap <String, Long> () ;
-		HashMap <String, Long> commoditySales = new HashMap <String, Long> () ;
+		HashMap<String, String> branchNameMap = new HashMap<String,String> () ;
+		HashMap<String, String> commodityNameMap = new HashMap<String,String> () ;
+		HashMap <String, Long> branchSalesMap = new HashMap <String, Long> () ;
+		HashMap <String, Long> commoditySalesMap = new HashMap <String, Long> () ;
 
 		if (args.length != 1) {
 			System.out.println("予期せぬエラーが発生しました");
@@ -30,26 +30,26 @@ public class SalesCalculationAssignment {
 		}
 
 
-		if(! input(args[0] + File.separator + "branch.lst", "^\\d{3}$", "支店",  branchSales, branch)) {
+		if(! input(args[0] + File.separator + "branch.lst", "^\\d{3}$", "支店",  branchSalesMap, branchNameMap)) {
 			return ;
 		}
 
 
-		if(! input(args[0] + File.separator + "commodity.lst", "^\\w{8}$", "商品", commoditySales, commodity)) {
+		if(! input(args[0] + File.separator + "commodity.lst", "^\\w{8}$", "商品", commoditySalesMap, commodityNameMap)) {
 			return ;
 		}
 
-		if(!calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
+		if(!calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSalesMap, commoditySalesMap)){
 			return ;
 		}
 
 
-		if(!output(args[0] + File.separator + "branch.out", branchSales, branch)){
+		if(!output(args[0] + File.separator + "branch.out", branchSalesMap, branchNameMap)){
 			return;
 		}
 
 
-		if(!output(args[0] + File.separator + "commodity.out", commoditySales, commodity)){
+		if(!output(args[0] + File.separator + "commodity.out", commoditySalesMap, commodityNameMap)){
 			return;
 		}
 	}
@@ -160,7 +160,7 @@ public class SalesCalculationAssignment {
 		File files [] = dir.listFiles () ;
 
 	//rcdリストの変数宣言
-		ArrayList<File> array = new ArrayList<File>();
+		ArrayList<File> arrayList = new ArrayList<File>();
 
 		for (int i =0 ; i < files.length ; i++) {
 
@@ -169,17 +169,17 @@ public class SalesCalculationAssignment {
 			if (fileName.matches(digitsRcd) ){
 
 				if(files[i].isFile()) {
-					array.add (files[i]) ;
+					arrayList.add (files[i]) ;
 				}
 			}
 		}
 
 
-		for (int i = 0 ; i < array.size() ; i++) {
+		for (int i = 0 ; i < arrayList.size() ; i++) {
 
-			int obtain  = Integer.parseInt(array.get(i).getName().substring(0,8));
+			int get  = Integer.parseInt(arrayList.get(i).getName().substring(0,8));
 
-			int difference = obtain - i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
+			int difference = get - i ;// 連番チェックは外でやったほうが、プログラム上でrcdのみになった後なので負担が少ない
 
 			if (difference != 1) {
 				System.out.println("売上ファイル名が連番になっていません");
@@ -189,42 +189,45 @@ public class SalesCalculationAssignment {
 		}//rcdのfor終了
 
 
-		for (int i = 0 ;i < array.size() ; i++) {
-			String Str = array.get(i).toString() ;
-			FileReader fr = new FileReader (Str) ;
-			BufferedReader br =new BufferedReader (fr) ;
-			ArrayList<String> eachRcd = new ArrayList<String>();
+		for (int i = 0 ;i < arrayList.size() ; i++) {
+
+			BufferedReader br = null ;
 
 			try {
+				FileReader fr = new FileReader (arrayList.get(i).toString()) ;
+				br = new BufferedReader (fr) ;
+				ArrayList<String> onlyRcd = new ArrayList<String>();
+				String Str ;
+
 				while ((Str = br.readLine ()) != null) {
-					eachRcd.add(Str);
+					onlyRcd.add(Str);
 				}
 
-				if (eachRcd.size() != 3 ) {
-					System.out.println(array.get(i).getName() + "のフォーマットが不正です");
+				if (onlyRcd.size() != 3 ) {
+					System.out.println(arrayList.get(i).getName() + "のフォーマットが不正です");
 					return false ;
 				}
 
-				long s = Long.parseLong(eachRcd.get(2));
+				long profit = Long.parseLong(onlyRcd.get(2));
 
-				if (! branchProfit.containsKey(eachRcd.get(0)) ) {
-					System.out.println(array.get(i).getName() + "の支店コードが不正です");
-					return false ;
-
-				}else {
-					branchProfit.put(eachRcd.get(0), s + branchProfit.get(eachRcd.get(0)) ) ;
-
-				}
-
-				if (! commodityProfit.containsKey(eachRcd.get(1))) {
-					System.out.println(array.get(i).getName() + "の商品コードが不正です");
+				if (! branchProfit.containsKey(onlyRcd.get(0)) ) {
+					System.out.println(arrayList.get(i).getName() + "の支店コードが不正です");
 					return false ;
 
 				}else {
-					commodityProfit.put(eachRcd.get(1), s + commodityProfit.get(eachRcd.get(1))) ;
+					branchProfit.put(onlyRcd.get(0), profit + branchProfit.get(onlyRcd.get(0)) ) ;
+
 				}
 
-				if (s + branchProfit.get(eachRcd.get(0)) > 9999999999L) {
+				if (! commodityProfit.containsKey(onlyRcd.get(1))) {
+					System.out.println(arrayList.get(i).getName() + "の商品コードが不正です");
+					return false ;
+
+				}else {
+					commodityProfit.put(onlyRcd.get(1), profit + commodityProfit.get(onlyRcd.get(1))) ;
+				}
+
+				if (profit + branchProfit.get(onlyRcd.get(0)) > 9999999999L) {
 					System.out.println("合計金額が10桁を超えました");
 					return false ;
 				}
