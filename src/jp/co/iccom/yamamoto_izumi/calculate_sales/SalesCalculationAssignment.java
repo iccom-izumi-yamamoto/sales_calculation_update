@@ -39,7 +39,7 @@ public class SalesCalculationAssignment {
 			return ;
 		}
 
-		if(order(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
+		if(calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
 
 		} else {
 			System.out.println("予期せぬエラーが発生しました");
@@ -154,7 +154,7 @@ public class SalesCalculationAssignment {
 
 	//売上を集計するメソッド
 
-	public static boolean order (String path, String digitsRcd,
+	public static boolean calculation (String path, String digitsRcd,
 			HashMap<String, Long> branchProfit, HashMap<String,Long>commodityProfit) throws FileNotFoundException{
 
 
