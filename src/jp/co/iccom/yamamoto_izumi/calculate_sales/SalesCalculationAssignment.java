@@ -40,7 +40,6 @@ public class SalesCalculationAssignment {
 		}
 
 		if(calculation(args[0] + File.separator, "^\\d{8}.rcd$", branchSales, commoditySales)){
-
 		} else {
 			System.out.println("予期せぬエラーが発生しました");
 			return ;
