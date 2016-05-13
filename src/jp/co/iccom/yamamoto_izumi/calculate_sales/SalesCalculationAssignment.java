@@ -70,7 +70,7 @@ public class SalesCalculationAssignment {
 			Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
 				@Override
 				public int compare(
-				Entry<String,Long> entry1, Entry<String,Long> entry2) {
+						Entry<String,Long> entry1, Entry<String,Long> entry2) {
 					return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
 				}
 
@@ -155,11 +155,11 @@ public class SalesCalculationAssignment {
 			HashMap<String, Long> branchProfit, HashMap<String,Long>commodityProfit) throws FileNotFoundException{
 
 
-	//集計rcdのみ
+		//集計rcdのみ
 		File dir = new File (path) ;
 		File files [] = dir.listFiles () ;
 
-	//rcdリストの変数宣言
+		//rcdリストの変数宣言
 		ArrayList<File> arrayList = new ArrayList<File>();
 
 		for (int i =0 ; i < files.length ; i++) {
@@ -227,11 +227,15 @@ public class SalesCalculationAssignment {
 					commodityProfit.put(onlyRcd.get(1), profit + commodityProfit.get(onlyRcd.get(1))) ;
 				}
 
-				if (profit + branchProfit.get(onlyRcd.get(0)) > 9999999999L) {
+				if (profit + branchProfit.get(onlyRcd.get(0)) >= 9999999999L) {
 					System.out.println("合計金額が10桁を超えました");
 					return false ;
 				}
 
+				if (profit + commodityProfit.get(onlyRcd.get(1)) >= 9999999999L) {
+					System.out.println("合計金額が10桁を超えました");
+					return false ;
+				}
 
 			}
 
