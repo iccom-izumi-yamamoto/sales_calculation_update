@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class SalesCalculationAssignment{
-public static void main (String [] args){
+public static void main(String [] args){
 	HashMap<String, String> branchNameMap = new HashMap<String,String> () ;
 	HashMap<String, String> commodityNameMap = new HashMap<String,String> () ;
 	HashMap <String, Long> branchSalesMap = new HashMap <String, Long> () ;
@@ -44,8 +44,7 @@ public static void main (String [] args){
 
 //メソッド分け
 //出力するメソッド
-public static boolean output (String fileNames,
-	HashMap <String,Long> profitMap, HashMap<String,String> listMap){
+public static boolean output(String fileNames, HashMap <String,Long> profitMap, HashMap<String,String> listMap){
 	BufferedWriter bw = null ;
 	try{
 		File file = new File ( fileNames ) ;
@@ -79,8 +78,7 @@ public static boolean output (String fileNames,
 }
 
 //入力するメソッド
-public static boolean input (String fileNames, String digits, String Name,
-	HashMap<String,Long> profitMap, HashMap<String,String> listMap)  {
+public static boolean input(String fileNames, String digits, String Name, HashMap<String,Long> profitMap, HashMap<String,String> listMap)  {
 	File file = new File( fileNames ) ;
 	if (!file.exists()){
 		System.out.println( Name + "定義ファイルが存在しません");
@@ -122,8 +120,7 @@ public static boolean input (String fileNames, String digits, String Name,
 }
 
 //売上を集計するメソッド
-public static boolean calculation (String path, String digitsRcd,
-	HashMap<String, Long> branchProfit, HashMap<String,Long> commodityProfit){
+public static boolean calculation(String path, String digitsRcd, HashMap<String, Long> branchProfit, HashMap<String,Long> commodityProfit){
 	File dir = new File ( path ) ;
 	File files [] = dir.listFiles () ;
 	ArrayList<File> arrayList = new ArrayList<File>();
