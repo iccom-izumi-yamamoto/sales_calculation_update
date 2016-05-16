@@ -42,43 +42,8 @@ public class SalesCalculationAssignment{
 		}
 	}
 
-	//メソッド分け
-	//出力するメソッド
-	public static boolean output(String fileNames,
-			HashMap <String,Long> profitMap, HashMap<String,String> listMap){
-		BufferedWriter bw = null ;
-		try{
-			File file = new File (fileNames) ;
-			FileWriter fw = new FileWriter(file);
-			bw = new BufferedWriter(fw);
-			List<Map.Entry<String, Long>> entries = new ArrayList<Map.Entry<String,Long>>(profitMap.entrySet());
-			Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
-				@Override
-				public int compare(Entry<String,Long> entry1, Entry<String,Long> entry2) {
-					return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
-				}
-			});
-			for (Entry<String,Long> e : entries ) {
-				bw.write(e.getKey() + "," + listMap.get(e.getKey()) + "," + e.getValue());
-				bw.newLine();
-			}
-		} catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
-			return false ;
-		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				}
-				catch (IOException e) {
-					System.out.println("予期せぬエラーが発生しました");
-					return false ;
-				}
-			}
-		} return true ;
-	}
-
-	//入力するメソッド
+//メソッド分け
+//入力するメソッド
 	public static boolean input(String fileNames, String digits, String Name,
 			HashMap<String,Long> profitMap, HashMap<String,String> listMap)  {
 		File file = new File(fileNames) ;
@@ -118,10 +83,11 @@ public class SalesCalculationAssignment{
 					return false ;
 				}
 			}
-		}return true ;
+		}
+		return true ;
 	}
 
-	//売上を集計するメソッド
+//売上を集計するメソッド
 	public static boolean calculation(String path, String digitsRcd,
 			HashMap<String, Long> branchProfit, HashMap<String,Long> commodityProfit){
 		File dir = new File(path) ;
@@ -192,6 +158,42 @@ public class SalesCalculationAssignment{
 					}
 				}
 			}
-		} return true;
+		}
+		return true;
+	}
+//出力するメソッド
+	public static boolean output(String fileNames,
+			HashMap <String,Long> profitMap, HashMap<String,String> listMap){
+		BufferedWriter bw = null ;
+		try{
+			File file = new File (fileNames) ;
+			FileWriter fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
+			List<Map.Entry<String, Long>> entries = new ArrayList<Map.Entry<String,Long>>(profitMap.entrySet());
+			Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
+				@Override
+				public int compare(Entry<String,Long> entry1, Entry<String,Long> entry2) {
+					return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
+				}
+			});
+			for (Entry<String,Long> e : entries ) {
+				bw.write(e.getKey() + "," + listMap.get(e.getKey()) + "," + e.getValue());
+				bw.newLine();
+			}
+		} catch (IOException e) {
+			System.out.println("予期せぬエラーが発生しました");
+			return false ;
+		} finally {
+			if (bw != null) {
+				try {
+					bw.close();
+				}
+				catch (IOException e) {
+					System.out.println("予期せぬエラーが発生しました");
+					return false ;
+				}
+			}
+		}
+		return true ;
 	}
 }
