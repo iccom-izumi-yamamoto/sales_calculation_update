@@ -3,7 +3,6 @@ package jp.co.iccom.yamamoto_izumi.calculate_sales ;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,9 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class SalesCalculationAssignment {
-
-public static void main (String [] args) throws FileNotFoundException {
+public class SalesCalculationAssignment{
+public static void main (String [] args){
 	HashMap<String, String> branchNameMap = new HashMap<String,String> () ;
 	HashMap<String, String> commodityNameMap = new HashMap<String,String> () ;
 	HashMap <String, Long> branchSalesMap = new HashMap <String, Long> () ;
@@ -45,16 +43,15 @@ public static void main (String [] args) throws FileNotFoundException {
 }
 
 //メソッド分け
-
 //出力するメソッド
 public static boolean output (String fileNames,
 	HashMap <String,Long> profitMap, HashMap<String,String> listMap){
 	BufferedWriter bw = null ;
 	try{
-		File file = new File (fileNames) ;
+		File file = new File ( fileNames ) ;
 		FileWriter fw = new FileWriter(file);
 		bw = new BufferedWriter(fw);
-		List<Map.Entry<String, Long>> entries = new ArrayList<Map.Entry<String,Long>>(profitMap.entrySet());
+		List<Map.Entry<String, Long>> entries = new ArrayList<Map.Entry<String,Long>>( profitMap.entrySet() );
 		Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
 			@Override
 			public int compare(Entry<String,Long> entry1, Entry<String,Long> entry2) {
@@ -83,10 +80,10 @@ public static boolean output (String fileNames,
 
 //入力するメソッド
 public static boolean input (String fileNames, String digits, String Name,
-	HashMap<String,Long> profitMap, HashMap<String,String> listMap) throws FileNotFoundException {
-	File file = new File(fileNames) ;
+	HashMap<String,Long> profitMap, HashMap<String,String> listMap)  {
+	File file = new File( fileNames ) ;
 	if (!file.exists()){
-		System.out.println(Name + "定義ファイルが存在しません");
+		System.out.println( Name + "定義ファイルが存在しません");
 		return false ;
 	}
 	BufferedReader br = null ;
@@ -97,11 +94,11 @@ public static boolean input (String fileNames, String digits, String Name,
 		while ((str = br.readLine ()) != null) {
 			String [] object = str.split(",",-1 ) ;
 			if (object.length != 2) { //要素数が[0][1]
-				System.out.println(Name + "定義ファイルのフォーマットが不正です");
+				System.out.println( Name + "定義ファイルのフォーマットが不正です");
 				return false ;
 			}
-			if (! object[0].matches (digits))  { //[0]がX桁
-				System.out.println(Name + "定義ファイルのフォーマットが不正です");
+			if (! object[0].matches ( digits ))  { //[0]がX桁
+				System.out.println( Name + "定義ファイルのフォーマットが不正です");
 				return false ;
 			}
 			listMap.put(object[0] , object[1]);
@@ -124,17 +121,15 @@ public static boolean input (String fileNames, String digits, String Name,
 	}return true ;
 }
 
-
 //売上を集計するメソッド
-
 public static boolean calculation (String path, String digitsRcd,
-	HashMap<String, Long> branchProfit, HashMap<String,Long>commodityProfit) throws FileNotFoundException{
-	File dir = new File (path) ;
+	HashMap<String, Long> branchProfit, HashMap<String,Long> commodityProfit){
+	File dir = new File ( path ) ;
 	File files [] = dir.listFiles () ;
 	ArrayList<File> arrayList = new ArrayList<File>();
 	for (int i =0 ; i < files.length ; i++) {
 		String fileName = files[i].getName() ;
-		if (fileName.matches(digitsRcd) ){
+		if (fileName.matches( digitsRcd ) ){
 			if(files[i].isFile()) {
 				arrayList.add (files[i]) ;
 			}
